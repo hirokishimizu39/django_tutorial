@@ -64,8 +64,7 @@ urlpatterns = [
 - ポイント
     - include()
     - pathの引数: route
-        リクエストを処理するとき、Django は urlpatterns のはじめのパターンから開始し、リストを順に下に見ていく。要求された URL を一致するものを見つけるまで各パターンと比較する。
-        パターンはGETやPOSTのパラメーター、ドメイン名を検索しない。例えば、 https://www.example.com/myapp/ へのリクエストにおいては、URLconfは myapp/ を見る。 https://www.example.com/myapp/?page=3 へのリクエストにおいても、URLconfは myapp/ を見る。
+        - リクエストを処理するとき、Django は urlpatterns のはじめのパターンから開始し、リストを順に下に見ていく。要求された URL を一致するものを見つけるまで各パターンと比較する。パターンはGETやPOSTのパラメーター、ドメイン名を検索しない。例えば、 https://www.example.com/myapp/ へのリクエストにおいては、URLconfは myapp/ を見る。 https://www.example.com/myapp/?page=3 へのリクエストにおいても、URLconfは myapp/ を見る。
     - pathの引数: view
         - 
     - pathの引数: kwargs
