@@ -56,8 +56,51 @@ urlpatterns = [
         - `{% extends 'base.html' %}`
     
 
+## Django_Tutorial_PollsApp
+#### tutorial_1
+- 使用コマンドや開発の流れ
+```
+<!-- Djangoのプロジェクト作成 -->
+django-admin startproject polls tutorial_1
+```
+```
+<!-- サーバーを立ち上げる -->
+python3 manage.py runserver
+```
+```
+<!-- pollsアプリを作る -->
+python3 manamge.py startapp polls
+```
+```
+<!-- views.pyの作成 -->
+from django.http import HttpResponse
 
-#### tutorial_1（投票システム）
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+```
+```
+<!-- polls.urls.pyの作成 -->
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path("", views.index, name="index"),
+]
+```
+```
+<!-- tutorial_1/urls.pyの作成 -->
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("polls/", include("polls.urls")),
+    path("admin/", admin.site.urls),
+]
+```
+
+
 - 疑問点.
     - Web サーバのドキュメントルート下 (/var/www といった場所) とは何か。
 
@@ -70,3 +113,222 @@ urlpatterns = [
     - pathの引数: kwargs
         - 任意のキーワード引数を辞書として対象のビューに渡す
     - pathの引数: name
+
+
+#### tutorial_2
+- 使用コマンドや開発の流れ
+```
+<!-- DBにテーブルを作成する -->
+python3 manage.py migarate
+```
+
+```
+<!-- polls.models.pyの編集 -->
+from django.db import models
+
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField("date published")
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+```
+
+```
+<!-- アプリをプロジェクトに含めるため tutorial_1/settings.pyを編集。 -->
+INSTALLED_APPS = [
+    "polls.apps.PollsConfig",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+]
+```
+
+```
+<!-- モデルの変更をマイグレーションファイルの形で保存する。 -->
+python3 manage.py makemigrations polls
+```
+
+```
+<!-- マイグレーションファイルを実行し、テーブルをDBに作成 -->
+python3 manage.py migrate
+```
+
+```
+<!-- 管理ユーザーを作成する -->
+python3 manage.py createsuperuser
+```
+
+```
+<!-- polls/adimin.pyの編集 -->
+<!-- 先ほど作ったpollアプリをadmin上で編集できるようにする -->
+from django.contrib import admin
+
+from .models import Question
+
+admin.site.register(Question)
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
+
+
+#### tutorial_3
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+```
+def detail(reuquest, question_id):
+    # try:
+    #     question = Question.objects.get(pk=question_id)
+    # except Question.DoesNotExist:
+    #     raise Http404("qestion does not exist.")
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/detail.html", {"quesiton": question})
+```
+    # 上記について、右記のことが指摘されているが、今はあまり理解できていない。なぜ ObjectDoesNotExist 例外を高水準で自動的にキャッチせず、ヘルパー関数 get_object_or_404() を使うのでしょうか、また、なぜモデル API に ObjectDoesNotExist ではなく、 Http404 を送出させるのでしょうか?
+
+- ポイント.
+    - 
+
+
+
+
+#### tutorial_4
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
+
+
+
+
+#### tutorial_5
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
+
+
+
+
+#### tutorial_6
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
+
+
+
+
+
+#### tutorial_7
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
+
+
+
+#### tutorial_8
+- 使用コマンドや開発の流れ
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+- 疑問点.
+    - 
+
+- ポイント.
+    - 
+
