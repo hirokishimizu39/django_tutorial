@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.db.models import F
 from django.urls import reverse
@@ -19,7 +21,7 @@ class IndexView(generic.ListView):
     context_object_name = "latest_question_list"
     def get_queryset(self):
         """Return the last five published questions(not inluding those set to be published in the future)."""
-        return Question.objects.fliter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 # def detail(request, question_id):
 #     # try:
@@ -33,7 +35,14 @@ class IndexView(generic.ListView):
 #     # 上記について、右記のことが指摘されているが、今はあまり理解できていない。なぜ ObjectDoesNotExist 例外を高水準で自動的にキャッチせず、ヘルパー関数 get_object_or_404() を使うのでしょうか、また、なぜモデル API に ObjectDoesNotExist ではなく、 Http404 を送出させるのでしょうか?なぜなら、それはモデル層とビュー層とを密結合させることになるからです。Django の最も重要な設計目標の一つは、疎結合を維持することです。 django.shortcuts には結合がコントロールされたいくつかのモジュールが用意されています。
 class DetailView(generic.DetailView):
     model = Question
-    template_anme = "polls/detail.html"
+    template_name = "polls/detail.html"
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        # Question.objects.filter(pub_date__lte=timezone.now()) は、pub_date が timezone.now 以前の Question を含んだクエリセットを返します。
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
 
 # def results(reuquest, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
