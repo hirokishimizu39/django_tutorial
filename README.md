@@ -113,6 +113,7 @@ urlpatterns = [
     - pathの引数: kwargs
         - 任意のキーワード引数を辞書として対象のビューに渡す
     - pathの引数: name
+- 感想
 
 
 #### tutorial_2
@@ -181,6 +182,8 @@ admin.site.register(Question)
 
 - ポイント.
     - 
+- 感想
+    - 
 
 
 
@@ -212,7 +215,8 @@ def detail(reuquest, question_id):
 
 - ポイント.
     - 
-
+- 感想
+    - 
 
 
 
@@ -234,6 +238,8 @@ def detail(reuquest, question_id):
     - 
 
 - ポイント.
+    - 
+- 感想
     - 
 
 
@@ -259,7 +265,8 @@ def detail(reuquest, question_id):
 
 - ポイント.
     - 
-
+- 感想
+    - Djangoで初めてのテストコードを勉強した
 
 
 
