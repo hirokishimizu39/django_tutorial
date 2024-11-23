@@ -1,12 +1,17 @@
 # Djangoの公式チュートリアルを実施
 https://docs.djangoproject.com/ja/4.2/intro/
 
+## 所感
+- 公式のチュートリアルというのは他にもrailsなどあると思うが、初めて取り組んだ。
+- 理解が難しいことが多いと感じたが、その分勉強になる内容も多いと感じた。
+- これからも動画教材、書籍、公式チュートリアルとそれぞれのメリットがあると思うので、上手く使って勉強していきたい。
 
 ## Djangoの概要
 - Instagram, edX, などで使用されるWebフレームワーク
+- MVTC(model, view, templates, urls.py)のフレームワーク
 
 #### models.py
-- ORMによりデータを扱うことができる
+- ORM(object relational mapping)によりデータを扱うことができる
 - モデル→マイグレーション（railsなど多くはmigration→modelの記述）
 - モデルの設計
 ```
@@ -24,13 +29,13 @@ class Article(models.Model):
 - モデルのインストール
 テーブルの作成と、マイグレーションの実行
 ```
-$ python manage.py makemigrations
-$ python manage.py migrate
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
 ```
 
 #### admin.py
 - 便利な管理者ツール
-    - モデルが定義されると、Django は自動的にプロ仕様の本番仕様の administrative interface 1 -- 認証されたユーザがオブジェクトを追加、変更、削除できるウェブサイトを作成される。必要なステップは、管理サイトにモデルを登録することだけ。
+    - モデルが定義されると、Django は自動的にプロ仕様の管理者サイトを作成する。（認証されたユーザがオブジェクトを追加、変更、削除できる）必要なステップは、管理サイトにモデルを登録することだけ。
 
 #### urls.py
 - 以下のように記述する。
@@ -57,9 +62,11 @@ urlpatterns = [
     
 
 ## Django_Tutorial_PollsApp
-#### tutorial_1
+#### tutorial_1 　Djangoプロジェクト・アプリのスタート
 - 使用コマンドや開発の流れ
 ```
+mkdir tutorial_1
+cd tutorial_1
 <!-- Djangoのプロジェクト作成 -->
 django-admin startproject polls tutorial_1
 ```
@@ -80,6 +87,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 ```
 ```
+個々のアプリのURLconf. 取り急ぎ全てのアクセスでindex.htmlを表示
 <!-- polls.urls.pyの作成 -->
 from django.urls import path
 
@@ -90,6 +98,7 @@ urlpatterns = [
 ]
 ```
 ```
+djangoプロジェクトのグローバルURLconf, include()でdjangoアプリのURLconfを参照する
 <!-- tutorial_1/urls.pyの作成 -->
 from django.contrib import admin
 from django.urls import include, path
@@ -106,17 +115,18 @@ urlpatterns = [
 
 - ポイント
     - include()
-    - pathの引数: route
+      - djangoプロジェクトのグローバルURLconfに、 include()でdjangoアプリのURLconf(urlpatterns[])を参照する
+    - path()の引数: route
         - リクエストを処理するとき、Django は urlpatterns のはじめのパターンから開始し、リストを順に下に見ていく。要求された URL を一致するものを見つけるまで各パターンと比較する。パターンはGETやPOSTのパラメーター、ドメイン名を検索しない。例えば、 https://www.example.com/myapp/ へのリクエストにおいては、URLconfは myapp/ を見る。 https://www.example.com/myapp/?page=3 へのリクエストにおいても、URLconfは myapp/ を見る。
-    - pathの引数: view
+    - path()の引数: view
         - 
-    - pathの引数: kwargs
+    - path()の引数: kwargs(=keyword arguments)
         - 任意のキーワード引数を辞書として対象のビューに渡す
-    - pathの引数: name
+    - path()の引数: name
 - 感想
 
 
-#### tutorial_2
+#### tutorial_2　 データベースの設定
 - 使用コマンドや開発の流れ
 ```
 <!-- DBにテーブルを作成する -->
@@ -126,7 +136,6 @@ python3 manage.py migarate
 ```
 <!-- polls.models.pyの編集 -->
 from django.db import models
-
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -187,7 +196,7 @@ admin.site.register(Question)
 
 
 
-#### tutorial_3
+#### tutorial_3 View
 - 使用コマンドや開発の流れ
 ```
 
@@ -211,7 +220,8 @@ def detail(reuquest, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"quesiton": question})
 ```
-    # 上記について、右記のことが指摘されているが、今はあまり理解できていない。なぜ ObjectDoesNotExist 例外を高水準で自動的にキャッチせず、ヘルパー関数 get_object_or_404() を使うのでしょうか、また、なぜモデル API に ObjectDoesNotExist ではなく、 Http404 を送出させるのでしょうか?
+    # 上記について、次のことが指摘されているが、今はあまり理解できていない。
+     - なぜ ObjectDoesNotExist 例外を高水準で自動的にキャッチせず、ヘルパー関数 get_object_or_404() を使うのでしょうか、また、なぜモデル API に ObjectDoesNotExist ではなく、 Http404 を送出させるのでしょうか?
 
 - ポイント.
     - 
