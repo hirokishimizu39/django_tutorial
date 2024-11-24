@@ -1,5 +1,19 @@
+h1 {
+    background-color: brown;
+}
+
+.css {
+    background-color: yellow;
+}
+
+ul {
+    color: yellow;
+    background-color: black;
+}
+
 li a {
-    color: green;
+    color: red;
+    background-color: blue;
 }
 
 body {
