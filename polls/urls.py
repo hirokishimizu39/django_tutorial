@@ -1,8 +1,11 @@
 from django.urls import path
 from . import views
 
+
+
 # urlの名前空間
 app_name = "polls"
+
 urlpatterns = [
     # ex: /polls/
     path("", views.IndexView.as_view(), name="index"),
